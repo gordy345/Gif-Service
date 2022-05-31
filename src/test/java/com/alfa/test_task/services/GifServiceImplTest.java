@@ -2,9 +2,9 @@ package com.alfa.test_task.services;
 
 import com.alfa.test_task.clients.GifClient;
 import com.alfa.test_task.utils.JsonUtils;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -21,17 +21,12 @@ class GifServiceImplTest {
     @Mock
     private JsonUtils jsonUtils;
 
-    private GifService gifService;
-
-
-    @BeforeEach
-    void setUp() {
-        gifService = new GifServiceImpl(gifClient, jsonUtils);
-    }
+    @InjectMocks
+    private final GifService gifService = new GifServiceImpl();
 
     @Test
     void searchGif() {
-        when(gifClient.searchGif(anyString())).thenReturn(JSON_RESULT_EMPTY_DATA);
+        when(gifClient.searchGif(anyString())).thenReturn(JSON_GIF_EMPTY_DATA);
         when(jsonUtils.extractRandomGifUrl(anyString())).thenReturn(GIF_URL);
         String resultUrl = gifService.findGif(SEARCH_QUERY);
         assertEquals(GIF_URL, resultUrl);
