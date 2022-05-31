@@ -1,8 +1,10 @@
 package com.alfa.test_task.utils;
 
+import com.alfa.test_task.exceptions.ExchangeRateNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,5 +36,15 @@ public class JsonUtils {
             return errorImagePath;
         }
         return url != null ? url : errorImagePath;
+    }
+
+    public double extractExchangeRate(String json, String currency) {
+        log.info("Extracting exchange rate from json for currency: " + currency);
+        try {
+            return objectMapper.readValue(json, ObjectNode.class).get("rates").get(currency).asDouble();
+        } catch (JsonProcessingException | NullPointerException e) {
+            log.warn("Exception happened while parsing JSON, message: " + e.getMessage());
+            throw new ExchangeRateNotFoundException("We didn't found exchange rate for currency: " + currency);
+        }
     }
 }
