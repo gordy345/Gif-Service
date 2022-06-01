@@ -4,10 +4,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 
 @SpringBootApplication
 @EnableFeignClients
-@PropertySource("classpath:constants.properties")
+@PropertySources({
+        @PropertySource("classpath:constants.properties"),
+        @PropertySource("classpath:settings.properties")
+})
 public class TestTaskApplication {
 
     public static void main(String[] args) {
