@@ -14,11 +14,14 @@ public class TestConstants {
     public static final String JSON_EXCHANGE_RATE_VALID = "{\"rates\":{\"USD\":3.6731}}";
     public static final String JSON_EXCHANGE_RATE_INVALID = "{\"rat\":{\"USD\":3.6731}}";
     public static final String EMPTY_STRING = "";
+    public static final String BASE_URL = "http://localhost:8080/api";
+    public static final String GIF_MODEL_ATTRIBUTE = "gif";
 
     @Value("${errorImageURL}")
     public static String ERROR_IMAGE_URL;
 
     @Value("${searchQueryUpRate}")
     public static String UP_SEARCH_QUERY;
+
 
 }
