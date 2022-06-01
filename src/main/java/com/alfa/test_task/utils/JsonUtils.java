@@ -32,7 +32,7 @@ public class JsonUtils {
             int randomIdx = (int) (Math.random() * data.size());
             url = data.get(randomIdx).get("images").get("original").get("url").asText();
         } catch (JsonProcessingException | NullPointerException e) {
-            log.warn("Exception happened while parsing JSON, message: " + e.getMessage());
+            log.warn("Exception happened while parsing gif JSON, message: " + e.getMessage());
             return errorImagePath;
         }
         return url != null ? url : errorImagePath;
@@ -43,7 +43,7 @@ public class JsonUtils {
         try {
             return objectMapper.readValue(json, ObjectNode.class).get("rates").get(currency).asDouble();
         } catch (JsonProcessingException | NullPointerException e) {
-            log.warn("Exception happened while parsing JSON, message: " + e.getMessage());
+            log.warn("Exception happened while parsing exchange rate JSON, message: " + e.getMessage());
             throw new ExchangeRateNotFoundException("We didn't found exchange rate for currency: " + currency);
         }
     }
