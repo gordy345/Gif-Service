@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import static com.alfa.test_task.utils.ExceptionMessages.EXCHANGE_RATE_NOT_FOUND_MESSAGE;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -44,7 +46,7 @@ public class JsonUtils {
             return objectMapper.readValue(json, ObjectNode.class).get("rates").get(currency).asDouble();
         } catch (JsonProcessingException | NullPointerException e) {
             log.warn("Exception happened while parsing exchange rate JSON, message: " + e.getMessage());
-            throw new ExchangeRateNotFoundException("We didn't found exchange rate for currency: " + currency);
+            throw new ExchangeRateNotFoundException(EXCHANGE_RATE_NOT_FOUND_MESSAGE + currency);
         }
     }
 }
